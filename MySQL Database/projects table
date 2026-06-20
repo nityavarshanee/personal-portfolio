@@ -1,7 +1,0 @@
-USE portfolio;
-
-INSERT INTO projects (title, description)
-VALUES 
-('Portfolio Website', 'Built using Node.js + MySQL'),
-('E-Waste Management App', 'API based project');
-SELECT * FROM projects;
