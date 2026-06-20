@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nitya Varshanee Portfolio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">Portfolio</div>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Hi, I'm Nitya Varshanee V</h1>
+        <h2>AI & Web Development Student</h2>
+        <p>
+            Passionate about Artificial Intelligence,
+            Web Development and Database Management.
+        </p>
+
+        <a href="#projects" class="btn">View Projects</a>
+    </div>
+</section>
+
+<section id="about">
+    <h2>About Me</h2>
+
+    <div class="card">
+        <p>
+            I am a second-year student interested in Artificial
+            Intelligence and Web Development. I enjoy learning
+            new technologies and building projects that solve
+            real-world problems.
+        </p>
+    </div>
+</section>
+
+<section id="skills">
+    <h2>Skills</h2>
+
+    <div class="skills-container">
+
+        <div class="skill-card">Java</div>
+        <div class="skill-card">Python</div>
+        <div class="skill-card">HTML</div>
+        <div class="skill-card">CSS</div>
+        <div class="skill-card">Node.js</div>
+        <div class="skill-card">MySQL</div>
+
+    </div>
+</section>
+
+<section id="projects">
+    <h2>Projects</h2>
+
+    <div class="project-container" id="projectContainer">
+        <p>Loading projects...</p>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+
+    <div class="card">
+        <p>Email: nityavarshanee@gmail.com</p>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Nitya Varshanee</p>
+</footer>
+<script>
+const container = document.getElementById("projectContainer");
+
+fetch("http://localhost:5000/projects")
+  .then(async (res) => {
+    if (!res.ok) {
+      throw new Error("API not responding");
+    }
+    return res.json();
+  })
+  .then(data => {
+
+    container.innerHTML = "";
+
+    if (!Array.isArray(data) || data.length === 0) {
+      container.innerHTML = "<p>No projects available</p>";
+      return;
+    }
+
+    data.forEach(project => {
+      container.innerHTML += `
+        <div class="project-card">
+          <h3>${project.title}</h3>
+          <p>${project.description}</p>
+        </div>
+      `;
+    });
+
+  })
+  .catch(err => {
+    console.log("Error:", err);
+    container.innerHTML = "<p>Failed to load projects</p>";
+  });
+</script>
+</body>
+</html>
